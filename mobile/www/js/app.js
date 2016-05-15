@@ -7,9 +7,8 @@ angular.module('starter',
    [
     'ionic',
     'ui.bootstrap',
-    'ui.router', 
-    'ngMessages', 
-    'ionic-material', 
+    'ui.router',
+    'ionic-material',
     'ionMdInput',
     'satellizer'
     ])

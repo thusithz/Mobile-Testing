@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/mobile server/api/services/services.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mobile server/config/connections.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mobile server/config/models.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mobile server/logs/logger.log" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mobile/.gitignore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mobile/www/js/app.js" charset="UTF-8" />
+  </component>
+</project>

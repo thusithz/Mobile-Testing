@@ -18,6 +18,7 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
  */
+var DB=require('../api/services/services').DB;
 
 module.exports.connections = {
 
@@ -42,10 +43,11 @@ module.exports.connections = {
   ***************************************************************************/
    someMysqlServer: {
      adapter: 'sails-mysql',
-     host: '127.0.0.1',
-     user: 'root', //optional
-     password: '1234', //optional
-     database: 'mobile' //optional
+     host: DB.host,
+     port: DB.port,
+     user: DB.user,
+     password: DB.password,
+     database: DB.database
    }
 
   /***************************************************************************
