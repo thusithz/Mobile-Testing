@@ -1,13 +1,14 @@
 angular.module('starter')
-  .controller('LoginController', function($scope, $state, Auth) {
+  .controller('LoginController', function($scope,$state, Auth,ionicToast) {
     $scope.errors = [];
 
     $scope.login = function(user) {
-      $scope.errors = [];
-      Auth.login(user).success(function(result) {
-        $state.go('user.messages');
+
+      Auth.login(user).success(function(){
+        ionicToast.show('Successfully login', 'top', false, 2000);
+        $state.go('user.profile');
       }).error(function(err) {
-        $scope.errors.push(err);
+        ionicToast.show(err.userMessage, 'top', false, 2000);
       });
     }
   });

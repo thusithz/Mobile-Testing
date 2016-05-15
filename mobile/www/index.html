@@ -29,10 +29,14 @@
     <script src="js/services/auth.js"></script>
     <script src="js/services/currentUser.js"></script>
     <script src="js/services/localStorage.js"></script>
+    <script src="js/services/profile.js"></script>
 
     <!--  Controllers  -->
     <script src="js/controllers/loginController.js"></script>
     <script src="js/controllers/registerController.js"></script>
+    <script src="js/controllers/profileController.js"></script>
+    <script src="js/controllers/usersController.js"></script>
+    <script src="js/controllers/commonController.js"></script>
 
     <!--  Lib -->
     <script src="lib/angular-bootstrap/ui-bootstrap.js"></script>
@@ -40,6 +44,8 @@
     <script src="lib/ionic-material/dist/ionic.material.min.js"></script>
     <script src="lib/ion-md-input/js/ion-md-input.min.js"></script>
     <script src="lib/satellizer/satellizer.min.js"></script>
+    <script src="lib/ionic-toast/dist/ionic-toast.bundle.min.js"></script>
+    <script src="lib/angular-ui-mask/dist/mask.js"></script>
 
   </head>
   <body ng-app="starter">
@@ -56,21 +62,24 @@
         <ion-nav-view ></ion-nav-view>
         <ion-nav-view name="menuContent" ng-class="{expanded: isExpanded}" ></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="right">
+    <ion-side-menu side="right" ng-controller="CommonController" >
         <ion-header-bar class="dark-bg expanded">
             <span class="avatar" style="background: url('img/logo.png'); background-size: cover;"></span>
             <h2>Testing App</h2>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header">
             <ion-list>
-                <ion-item nav-clear menu-close ui-sref="anon.login">
+                <ion-item  ng-if="!log" nav-clear menu-close ui-sref="anon.login">
                     Login
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="anon.register">
+                <ion-item ng-if="!log" nav-clear menu-close ui-sref="anon.register">
                     Register
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="user.profile">
+                <ion-item ng-if="log" nav-clear menu-close ui-sref="user.profile">
                     Profile
+                </ion-item>
+                <ion-item ng-if="log" nav-clear menu-close ng-click="logout()">
+                  Logout
                 </ion-item>
             </ion-list>
         </ion-content>

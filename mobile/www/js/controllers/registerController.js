@@ -1,10 +1,11 @@
 
 angular.module('starter')
 
-  .controller('RegisterController', function($scope, $state, Auth) {
+  .controller('RegisterController', function($scope, $state, Auth,ionicToast) {
     $scope.register = function(user) {
       Auth.register(user).then(function() {
-        $state.go('anon.home');
+        ionicToast.show('Congratulation !! ', 'top', false, 2000);
+        $state.go('user.profile');
       });
     }
   });

@@ -1,5 +1,5 @@
 angular.module('starter')
-  .factory('Auth', function($http, LocalService, AccessLevels , SERVER_URL) {
+  .factory('Auth', function($http, LocalService, AccessLevels , SERVER_URL ,$auth) {
     return {
       authorize: function(access) {
         if (access === AccessLevels.user) {
@@ -9,24 +9,25 @@ angular.module('starter')
         }
       },
       isAuthenticated: function() {
-        return LocalService.get('auth_token');
+        return $auth.isAuthenticated();
       },
       login: function(credentials) {
-        var login = $http.post(SERVER_URL + 'login', credentials);
+        var login = $http.post(SERVER_URL+ 'login', credentials);
         login.success(function(result) {
-          LocalService.set('auth_token', JSON.stringify(result));
+          LocalService.set('satellizer_token', result.token );
+          LocalService.set('user', result.user);
         });
         return login;
       },
       logout: function() {
-        // The backend doesn't care about logouts, delete the token and you're good to go.
-        LocalService.unset('auth_token');
+        LocalService.unset('satellizer_token');
       },
       register: function(formData) {
-        LocalService.unset('auth_token');
-        var register = $http.post(SERVER_URL + 'register', formData);
+        LocalService.unset('satellizer_token');
+        var register = $http.post(SERVER_URL +'register', formData);
         register.success(function(result) {
-          LocalService.set('auth_token', JSON.stringify(result));
+          LocalService.set('satellizer_token', result.token );
+          LocalService.set('user', result.user);
         });
         return register;
       }

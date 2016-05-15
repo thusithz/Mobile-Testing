@@ -49,5 +49,6 @@ module.exports.routes = {
 
   // Authenticated User
 
-  'PUT /user' : 'UserController.update'
+  'PUT /user' : 'UserController.update',
+  'GET /user' : 'UserController.user'
 };

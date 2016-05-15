@@ -9,6 +9,8 @@
     "angular-bootstrap": "^1.3.2",
     "ionic-material": "^0.4.2",
     "ion-md-input": "^1.0.4",
-    "satellizer": "^0.14.0"
+    "satellizer": "^0.14.0",
+    "ionic-toast": "^0.2.0",
+    "angular-ui-mask": "^1.8.3"
   }
 }

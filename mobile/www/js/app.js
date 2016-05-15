@@ -10,9 +10,11 @@ angular.module('starter',
     'ui.router',
     'ionic-material',
     'ionMdInput',
-    'satellizer'
+    'satellizer',
+    'ionic-toast',
+     'ui.mask'
     ])
-.run(function($ionicPlatform,$rootScope, $state, Auth) {
+.run(function($ionicPlatform,$rootScope, $state, Auth ,$auth) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -31,9 +33,9 @@ angular.module('starter',
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
       if (!Auth.authorize(toState.data.access)) {
         event.preventDefault();
-
         $state.go('anon.login');
       }
+
     });
 })
 .config(function($stateProvider, $urlRouterProvider, AccessLevels) {
@@ -73,20 +75,15 @@ angular.module('starter',
         url: '/profile',
         templateUrl: 'templates/user/profile.html',
         controller: 'ProfileController'
+      })
+      .state('user.users', {
+        url: '/users',
+        templateUrl: 'templates/user/users.html',
+        controller: 'UsersController'
       });
 
     $urlRouterProvider.otherwise('/');
 
-})
+});
 
 
-// angular.module('app', ['ui.bootstrap', 'ui.router', 'ngMessages', 'app-templates'])
-//   .run(function($rootScope, $state, Auth) {
-//     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-//       if (!Auth.authorize(toState.data.access)) {
-//         event.preventDefault();
-
-//         $state.go('anon.login');
-//       }
-//     });
-//   });

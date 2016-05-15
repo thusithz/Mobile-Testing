@@ -6,42 +6,74 @@
  */
 var JWT = require('machinepack-jwt'),
   Passwords = require('machinepack-passwords'),
-  service=require('../services/services');
+  service=require('../services/services'),
+  validator = require('validator');
 
 module.exports = {
 
   login : function(req,res){
 
     var body=req.body;
-    console.log(body);
-    User.findOne({where:{ or : [{email : body.email},{username : body.email}]}})
+
+    User.findOne({email : body.email})
       .populateAll()
       .exec(function(err, user) {
         if(err || !user) {
-          console.log('In');
-          return res.serverError(err);
+          res.status(404).json({
+            "status" : 'Fail',
+            "developerMessage" :"",
+            "userMessage" : "Your are not registered user",
+            "errorCode" : "404"
+          });
         }
-        var payload={
-          id : user.id,
-          email : user.email,
-          username : user.username
-        };
-        JWT.encode({
-          secret: service.secret,
-          payload: payload
+
+        Passwords.checkPassword({
+          passwordAttempt: req.body.password,
+          encryptedPassword: user.password
         }).exec({
           // An unexpected error occurred.
           error: function (err){
-            return res.negotiate({
+            res.status(404).json({
               "status" : 'Fail',
-              "developerMessage" :"Something went wrong with encoding",
-              "userMessage" : "Technical issue",
-              "errorCode" : "500"
+              "developerMessage" :"",
+              "userMessage" : "something went wrong with server",
+              "errorCode" : "404"
+            });
+          },
+          // Password attempt does not match already-encrypted version
+          incorrect: function (){
+            res.status(400).json({
+              "status" : 'Fail',
+              "developerMessage" :"",
+              "userMessage" : "Password Incorrect",
+              "errorCode" : "400"
             });
           },
           // OK.
-          success: function (token){
-            return res.json({ token: token, user: user})
+          success: function (){
+            var payload={
+              id : user.id,
+              email : user.email,
+              username : user.username
+            };
+            JWT.encode({
+              secret: service.secret,
+              payload: payload
+            }).exec({
+              // An unexpected error occurred.
+              error: function (err){
+                return res.negotiate({
+                  "status" : 'Fail',
+                  "developerMessage" :"Something went wrong with encoding",
+                  "userMessage" : "Technical issue",
+                  "errorCode" : "500"
+                });
+              },
+              // OK.
+              success: function (token){
+                return res.json({ token: token, user: user})
+              }
+            });
           }
         });
       });
@@ -49,12 +81,55 @@ module.exports = {
 
   register : function(req,res){
 
-    User.create(req.body).exec(function(err,user){
-      if(err){
-        return res.json({err:err});
-      }
-      return res.json({user:user});
-    })
+    if(!validator.isEmail(req.body.email)){
+
+      return res.status(400).json({
+        "status" : 'Fail',
+        "developerMessage" :"Invalid attribute type",
+        "userMessage" : "Enter valid email",
+        "errorCode" : "400"
+
+      });
+    }else{
+      User.create(req.body).exec(function(err, newuser) {
+        if (err) {
+          return res.status(400).json({
+            "status" : 'Fail',
+            "developerMessage" :"Some thing went wrong when create user",
+            "userMessage" : "Can't create",
+            "errorCode" : "400"
+
+          });
+        }
+        if (newuser) {
+
+              var pay={
+                id : newuser.id,
+                email : newuser.email,
+                username : newuser.username
+              };
+              JWT.encode({
+                secret: service.secret,
+                payload: pay
+              }).exec({
+                // An unexpected error occurred.
+                error: function (err){
+                  return res.negotiate({
+                    "status" : 'Fail',
+                    "developerMessage" :"Some thing went wrong when create token",
+                    "userMessage" : "Technical issue",
+                    "errorCode" : "500"
+
+                  });
+                },
+                // OK.
+                success: function (token){
+                  return res.json({ token: token, user: newuser})
+                }
+              });
+        }
+      });
+    }
 
   }
 

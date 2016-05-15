@@ -1,0 +1,29 @@
+
+<ion-view view-title="Profile">
+  <ion-content ng-class="{expanded:$scope.isExpanded}" style="background: url(img/login.jpg) center; background-size: cover;">
+
+    <div class="hero no-header flat">
+      <div class="content">
+        <div class="app-icon"></div>
+        <h1>{{user.username}}</h1>
+      </div>
+    </div>
+    <div class="list">
+      <ion-md-input placeholder="First Name" highlight-color="balanced"  ng-model="user.firstname" type="text"></ion-md-input>
+      <ion-md-input placeholder="Last Name" highlight-color="balanced"  ng-model="user.lastname" type="text"></ion-md-input>
+      <ion-md-input placeholder="Email" highlight-color="balanced"  ng-model="user.email" type="text"></ion-md-input>
+      <ion-md-input placeholder="Address" highlight-color="energized"  ng-model="user.address" type="text"></ion-md-input>
+      <ion-md-input placeholder="Phone" highlight-color="energized"  ng-model="user.phone"  type="text" ng-pattern="/[0-9]+/" ></ion-md-input>
+    </div>
+    <div class="padding">
+      <button ng-click="update(user)" class="button button-full button-assertive ink">Edit</button>
+    </div>
+
+    <div class="tabs tabs-dark tabs-icon-top static">
+      <a ui-sref="user.users" class="tab-item">
+        <i class="icon ion-android-people"></i> Users
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>
