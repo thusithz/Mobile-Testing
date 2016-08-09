@@ -16,7 +16,7 @@ Go to Mobile folder
     - $bower install
  
  
- ## Mobile Server Setup Steps
+## Mobile Server Setup Steps
 
  
  Go to mobile server folder
