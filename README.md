@@ -1,30 +1,31 @@
 # Mobile-Testing
 
---------------------------------------------------------------------------------------------------------
-# Pre-Requirement 
- Node js, Sails Js , Ionic 
+### Pre-Requirement 
+ - Node js, Sails Js , Ionic 
 
   1) Install NodeJs setup file
   2) $npm -g install sails
   3) $npm install -g cordova ionic
  
-#Mobile App Setup steps 
---------------------------------------------------------------------------------------------------------
+## Mobile App Setup steps 
 
 Go to Mobile folder
- Run $npm install & $bower install
+ 
+#### Run 
+    - $npm install 
+    - $bower install
  
  
- #Mobile Server Setup Steps
- -------------------------------------------------------------------------------------------------------
+ ## Mobile Server Setup Steps
+
  
  Go to mobile server folder
  
-  run $npm install
+  - run $npm install
   
-  DB Configure 
+  - DB Configure 
   
-  and then go to api->services->service.js 
+  and then go to      api->services->service.js 
   
   DB: {
     host: '127.0.0.1',
@@ -37,4 +38,8 @@ Go to Mobile folder
   
   Finally go to root folder of server (mobile server)
   
-  run $sails lift
+ ### Up System 
+ - # $sails lift
+
+
+
