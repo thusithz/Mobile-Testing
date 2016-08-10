@@ -1,11 +1,11 @@
 # Mobile-Testing
-
+Hybrid mobile application with node server (SailsJs) example
 ### Pre-Requirement 
  - Node js, Sails Js , Ionic 
 
-  1) Install NodeJs setup file
-  2) $npm -g install sails
-  3) $npm install -g cordova ionic
+ - Install NodeJs setup file
+ - $npm -g install sails
+ - $npm install -g cordova ionic
  
 ## Mobile App Setup steps 
 
